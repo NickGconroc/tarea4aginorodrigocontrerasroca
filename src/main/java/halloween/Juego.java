@@ -63,25 +63,6 @@ public class Juego {
         System.out.println("¡¡¡BUAHAHAHAHAHA!!!");
     }
 
-    // PUERTA O VENTANA
-
-    // Aleatoriamente, el espíritu decide abrir una puerta o una ventana de la casa
-    // y se lo indica al jugador.
-
-    public static int abrirPuertaOVentana() {
-
-        Random ran = new Random();
-        int eleccion = ran.nextInt(2); // 0 puerta, 1 ventana
-
-        if (eleccion == 0) {
-            System.out.println("El espíritu ha abierto una puerta de la casa");
-        } else {
-            System.out.println("El espíritu ha abierto una ventana de la casa");
-        }
-        return eleccion;
-
-    }
-
     // SEGUIR O SALIR
     // En este momento le pregunta si realmente quiere entrar o está tan aterrado
     // que prefiere salir.
@@ -100,6 +81,25 @@ public class Juego {
         return eleccion;
     }
 
+    // PUERTA O VENTANA
+
+    // Aleatoriamente, el espíritu decide abrir una puerta o una ventana de la casa
+    // y se lo indica al jugador.
+
+    public static int abrirPuertaOVentana() {
+
+        Random ran = new Random();
+        int eleccion = ran.nextInt(2); // 0 puerta, 1 ventana
+
+        if (eleccion == 0) {
+            System.out.println("El espíritu ha abierto una puerta de la casa");
+        } else {
+            System.out.println("El espíritu ha abierto una ventana de la casa");
+        }
+        return eleccion;
+
+    }
+  
     // 1 PUERTA
     // BIBLIOTECA O SALÓN
     // Si decide entrar y lo hace por la puerta, el usuario avanza hasta el
@@ -140,9 +140,10 @@ public class Juego {
 
         if (situacion == 0) {
             System.out.println("¡Un grupo de zombis ha salido del suelo para comerte!");
-            Juego.juegoAdivinaNumero();
-        } else {
+            
+        } else if (situacion == 1) {
             System.out.println("¡Has encontrado un agujero en el suelo que te permite escapar de la casa!");
+            System.out.println("Fin del Juego");
             
         }
         return situacion;
