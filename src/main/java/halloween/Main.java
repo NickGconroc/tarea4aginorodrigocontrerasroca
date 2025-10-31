@@ -4,18 +4,29 @@ public class Main {
     public static void main(String[] args) {
 
         
-        // do{
+        do{
             
             Juego.bienvenidaJuego();
-
-            Juego.abrirPuertaOVentana();
-
-            Juego.entrarOSalir();
+            
+            if (Juego.entrarOSalir().equalsIgnoreCase("Salir")){
+                break;
+            }
 
             switch (Juego.abrirPuertaOVentana()) {
                 case 0: // PUERTA
                 String decision = Juego.entrarPorPuerta();
-                System.out.println(decision);
+                
+                if(Juego.entrarPorPuerta().equalsIgnoreCase("Biblioteca")){
+                    Juego.situacionBiblioteca();
+                if(Juego.situacionBiblioteca() == 1){
+                    break;
+                }
+                }
+                else if(Juego.entrarPorPuerta().equalsIgnoreCase("Salón")){
+                    Juego.situacionSalon();
+                }
+
+                
                     
                     break;
             
@@ -33,6 +44,6 @@ public class Main {
 
 
 
-        // } while(true);
+        } while(true);
     }
 }

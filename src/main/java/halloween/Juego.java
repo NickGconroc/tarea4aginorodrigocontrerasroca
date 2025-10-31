@@ -94,7 +94,7 @@ public class Juego {
             System.out.println("Has decidido entrar en la casa del terror");
         } else if( eleccion.equalsIgnoreCase("Salir")) {
             System.out.println("Has decidido salir corriendo de la casa del terror. ¡Hasta luego!");
-            break;
+            
         }
         }while(!eleccion.equalsIgnoreCase("Entrar") && !eleccion.equalsIgnoreCase("Salir"));
         return eleccion;
@@ -109,10 +109,11 @@ public class Juego {
     public static String entrarPorPuerta() {
         Scanner teclado = new Scanner(System.in);
         System.out.println("Has entrado por la puerta y estás en el recibidor de la casa");
-        String eleccion = "";
+        // String eleccion = "";
+         System.out.println("¿Quieres abrir la puerta de la biblioteca o la del salón? (Biblioteca/Salón)");
+        String eleccion = teclado.nextLine();
         do{          
-        System.out.println("¿Quieres abrir la puerta de la biblioteca o la del salón? (Biblioteca/Salón)");
-        eleccion = teclado.nextLine();
+        
         if (eleccion.equalsIgnoreCase("Biblioteca")) {
             System.out.println("Has decidido abrir la puerta de la biblioteca");
         } else if (eleccion.equalsIgnoreCase("Salón")) {
