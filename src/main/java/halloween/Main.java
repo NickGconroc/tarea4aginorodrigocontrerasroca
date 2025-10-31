@@ -27,7 +27,7 @@ public class Main {
         }
         int resultadosituacionbiblio = -1;
         boolean resultadoadivina;
-            if (resultadobibliotecaosalon.equalsIgnoreCase("Biblioteca"));{
+            if (resultadobibliotecaosalon.equalsIgnoreCase("Biblioteca")){
                 resultadosituacionbiblio = Juego.situacionBiblioteca();
                 if (resultadosituacionbiblio == 0) {
                     resultadoadivina = Juego.juegoAdivinaNumero();
@@ -39,7 +39,7 @@ public class Main {
                    break;
                 }
                 
-            }
+            
 
             if (resultadobibliotecaosalon.equalsIgnoreCase("Salón"));{
                 Juego.situacionSalon();
