@@ -10,37 +10,12 @@ public class Main {
             
             if (Juego.entrarOSalir().equalsIgnoreCase("Salir")){
                 break;
+            }else if (Juego.entrarOSalir().equalsIgnoreCase("Entrar")) {
+                Juego.abrirPuertaOVentana();
             }
 
-            switch (Juego.abrirPuertaOVentana()) {
-                case 0: // PUERTA
-                String decision = Juego.entrarPorPuerta();
-                
-                if(Juego.entrarPorPuerta().equalsIgnoreCase("Biblioteca")){
-                    Juego.situacionBiblioteca();
-                if(Juego.situacionBiblioteca() == 1){
-                    break;
-                }
-                }
-                else if(Juego.entrarPorPuerta().equalsIgnoreCase("Salón")){
-                    Juego.situacionSalon();
-                }
-
-                
-                    
-                    break;
             
-                case 1: // VENTANA
-                
-                String decision2 = Juego.entrarPorVentana();
-                System.out.println(decision2);
-
-
-                    break;
-
-                default:
-                    break;
-            }
+            
 
 
 

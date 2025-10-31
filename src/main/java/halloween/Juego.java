@@ -143,6 +143,7 @@ public class Juego {
             Juego.juegoAdivinaNumero();
         } else {
             System.out.println("¡Has encontrado un agujero en el suelo que te permite escapar de la casa!");
+            
         }
         return situacion;
     }
