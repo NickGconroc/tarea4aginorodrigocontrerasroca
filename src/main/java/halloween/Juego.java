@@ -1,274 +1,211 @@
 package halloween;
 
-import java.security.PublicKey;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Clase que contiene la lógica del juego "La casa del terror".
+ * Cada método corresponde a una acción o situación del juego.
+ */
 public class Juego {
 
-    /*
-     * El juego se inicia dando la bienvenida al usuario a la casa del terror.
-     * Al iniciar el juego, el espíritu de la casa informa al usuario del
-     * sufrimiento
-     * que va a padecer si entra y lo asusta para que no lo haga.
-     * Aleatoriamente, el espíritu decide abrir una puerta o una ventana de la casa
-     * y se lo indica al jugador.
-     * En este momento le pregunta si realmente quiere entrar o está tan aterrado
-     * que prefiere salir.
-     * 
-     * Si decide entrar y lo hace por la puerta, el usuario avanza hasta el
-     * recibidor de la casa y debe elegir
-     * si quiere abrir la puerta de la biblioteca o la puerta del salón.
-     * En cada una de estas estancias pueden pasar dos situaciones, una siempre es
-     * tenebrosa
-     * y en la otra consigue escapar de la casa. Por ejemplo, si decide entrar en la
-     * biblioteca puede pasar
-     * que salga un grupo de zombis del suelo buscándote para comerte o que
-     * encuentres un agujero en el suelo
-     * que te permite escapar de la casa. Si decide entrar al salón puede pasar que
-     * venga Frankenstein con intención
-     * de estrangularte o que haya una escalera en la chimenea y consigas escapar...
-     * 
-     * Si el jugador decide entrar por la ventana, el usuario llega a la cocina de
-     * la casa y debe elegir
-     * si quiere abrir la puerta de despensa o la puerta que da al pasillo. En cada
-     * una de estas estancias pueden
-     * pasar dos situaciones, una siempre es tenebrosa y la otra es que consigues
-     * escapar.
-     * Inventa tus propias situaciones. Dale un toque personal al juego.
-     * 
-     * En cualquier caso, al entrar en una estancia el juego elige aleatoriamente
-     * entre una de las dos posibles
-     * situaciones. Si surge la situación tenebrosa, entonces el espíritu de la casa
-     * aparece para jugar contigo.
-     * El maligno pensará un número entre 1 y 20 (aleatoriamente) y le dará 3 vidas
-     * al jugador para adivinarlo.
-     * Si el jugador lo adivina antes de las tres rondas, entonces libera a la casa
-     * del espíritu y se proclama
-     * héroe del pueblo. En caso contrario, el espíritu maligno devuelve al jugador
-     * a la posición inicial para
-     * seguir torturándolo.
+    // Scanner único para toda la clase (evita problemas de buffer y múltiples scanners)
+    private static final Scanner teclado = new Scanner(System.in);
+
+    /**
+     * Muestra la bienvenida y la introducción al juego.
      */
-
-    
-
-    // El juego se inicia dando la bienvenida al usuario a la casa del terror.
-    // Al iniciar el juego, el espíritu de la casa informa al usuario del
-    // sufrimiento
-    // que va a padecer si entra y lo asusta para que no lo haga.
-
     public static void bienvenidaJuego() {
-        System.out.println("Bienvenido a la casa del terror");
-        System.out.println("El espíritu de la casa te informa del sufrimiento que vas a padecer si entras");
+        System.out.println("Bienvenido a la casa del terror...");
+        System.out.println("El espíritu de la casa te informa del sufrimiento que vas a padecer si entras.");
         System.out.println("¡¡¡BUAHAHAHAHAHA!!!");
     }
 
-    // SEGUIR O SALIR
-    // En este momento le pregunta si realmente quiere entrar o está tan aterrado
-    // que prefiere salir.
+    /**
+     * Pregunta si el jugador quiere entrar o salir.
+     * @return "Entrar" o "Salir" según lo elegido por el usuario.
+     */
     public static String entrarOSalir() {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("¿Quieres entrar en la casa o prefieres salir? (Entrar/Salir)");
-        String eleccion = teclado.nextLine();
-        do{
-        if (eleccion.equalsIgnoreCase("Entrar")) {
-            System.out.println("Has decidido entrar en la casa del terror");
-        } else if( eleccion.equalsIgnoreCase("Salir")) {
-            System.out.println("Has decidido salir corriendo de la casa del terror. ¡Hasta luego!");
-            
-        }
-        }while(!eleccion.equalsIgnoreCase("Entrar") && !eleccion.equalsIgnoreCase("Salir"));
+        String eleccion;
+        do {
+            System.out.println("¿Quieres entrar en la casa o prefieres salir? (Entrar/Salir)");
+            eleccion = teclado.nextLine().trim();
+
+            if (eleccion.equalsIgnoreCase("Entrar")) {
+                System.out.println("Has decidido entrar en la casa del terror...");
+            } else if (eleccion.equalsIgnoreCase("Salir")) {
+                System.out.println("Has decidido salir corriendo de la casa del terror. ¡Hasta luego!");
+            } else {
+                System.out.println("Opción no válida.");
+            }
+        } while (!eleccion.equalsIgnoreCase("Entrar") && !eleccion.equalsIgnoreCase("Salir"));
+
         return eleccion;
     }
 
-    // PUERTA O VENTANA
-
-    // Aleatoriamente, el espíritu decide abrir una puerta o una ventana de la casa
-    // y se lo indica al jugador.
-
+    /**
+     * El espíritu decide al azar abrir una puerta o una ventana.
+     * @return 0 si abre puerta, 1 si abre ventana.
+     */
     public static int abrirPuertaOVentana() {
-
         Random ran = new Random();
-        int eleccion = ran.nextInt(2); // 0 puerta, 1 ventana
+        int eleccion = ran.nextInt(2); // 0 = puerta, 1 = ventana
 
         if (eleccion == 0) {
-            System.out.println("El espíritu ha abierto una puerta de la casa");
+            System.out.println("El espíritu ha abierto una puerta de la casa...");
         } else {
-            System.out.println("El espíritu ha abierto una ventana de la casa");
+            System.out.println("El espíritu ha abierto una ventana de la casa...");
         }
         return eleccion;
-
     }
-  
-    // 1 PUERTA
-    // BIBLIOTECA O SALÓN
-    // Si decide entrar y lo hace por la puerta, el usuario avanza hasta el
-    // recibidor de la casa y debe elegir
-    // si quiere abrir la puerta de la biblioteca o la puerta del salón.
 
+    /**
+     * Si entra por la puerta: pregunta si abre biblioteca o salon (sin tilde).
+     * @return "Biblioteca" o "Salon"
+     */
     public static String entrarPorPuerta() {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Has entrado por la puerta y estás en el recibidor de la casa");
-        // String eleccion = "";
-         System.out.println("¿Quieres abrir la puerta de la biblioteca o la del salón? (Biblioteca/Salón)");
-        String eleccion = teclado.nextLine();
-        do{          
-        
-        if (eleccion.equalsIgnoreCase("Biblioteca")) {
-            System.out.println("Has decidido abrir la puerta de la biblioteca");
-        } else if (eleccion.equalsIgnoreCase("Salón")) {
-            System.out.println("Has decidido abrir la puerta del salón");
+        String eleccion;
+        do {
+            System.out.println("Has entrado por la puerta y estás en el recibidor de la casa.");
+            System.out.println("¿Quieres abrir la puerta de la biblioteca o la del salon? (Biblioteca/Salon)");
+            eleccion = teclado.nextLine().trim();
 
-        }
-        }while(!eleccion.equalsIgnoreCase("Biblioteca") && !eleccion.equalsIgnoreCase("Salón"));
+            if (eleccion.equalsIgnoreCase("Biblioteca")) {
+                System.out.println("Has decidido abrir la puerta de la biblioteca...");
+            } else if (eleccion.equalsIgnoreCase("Salon")) {
+                System.out.println("Has decidido abrir la puerta del salon...");
+            } else {
+                System.out.println("Opción no válida.");
+            }
+        } while (!eleccion.equalsIgnoreCase("Biblioteca") && !eleccion.equalsIgnoreCase("Salon"));
+
         return eleccion;
     }
 
-    // 1.2 PUERTA
-    // BIBLIOTECA
-    // En cada una de estas estancias pueden pasar dos situaciones, una siempre es
-    // tenebrosa
-    // y en la otra consigue escapar de la casa. Por ejemplo, si decide entrar en la
-    // biblioteca puede pasar
-    // que salga un grupo de zombis del suelo buscándote para comerte o que
-    // encuentres un agujero en el suelo
-    // que te permite escapar de la casa...
+    /**
+     * Si entra por la ventana: pregunta si abre despensa o pasillo.
+     * @return "Despensa" o "Pasillo"
+     */
+    public static String entrarPorVentana() {
+        String eleccion;
+        do {
+            System.out.println("Has entrado por la ventana y estás en la cocina de la casa.");
+            System.out.println("¿Quieres abrir la puerta de la despensa o la del pasillo? (Despensa/Pasillo)");
+            eleccion = teclado.nextLine().trim();
 
+            if (eleccion.equalsIgnoreCase("Despensa")) {
+                System.out.println("Has decidido abrir la puerta de la despensa...");
+            } else if (eleccion.equalsIgnoreCase("Pasillo")) {
+                System.out.println("Has decidido abrir la puerta del pasillo...");
+            } else {
+                System.out.println("Opción no válida.");
+            }
+        } while (!eleccion.equalsIgnoreCase("Despensa") && !eleccion.equalsIgnoreCase("Pasillo"));
+
+        return eleccion;
+    }
+
+    /**
+     * Situación aleatoria en la biblioteca.
+     * @return 0 si ocurre la situación tenebrosa (se jugará contra el espíritu), 1 si escapas.
+     */
     public static int situacionBiblioteca() {
         Random ran = new Random();
-        int situacion = ran.nextInt(2); // 0 tenebrosa, 1 escapar
+        int situacion = ran.nextInt(2); // 0 = tenebrosa, 1 = escapar
 
         if (situacion == 0) {
             System.out.println("¡Un grupo de zombis ha salido del suelo para comerte!");
-            
-        } else if (situacion == 1) {
+        } else {
             System.out.println("¡Has encontrado un agujero en el suelo que te permite escapar de la casa!");
-            System.out.println("Fin del Juego");
-            
         }
         return situacion;
     }
 
-    // 1.2 PUERTA
-    // SALÓN
-    // Si decide entrar al salón puede pasar que
-    // venga Frankenstein con intención
-    // de estrangularte o que haya una escalera en la chimenea y consigas escapar...
-
+    /**
+     * Situación aleatoria en el salon.
+     * @return 0 si ocurre la situación tenebrosa, 1 si escapas.
+     */
     public static int situacionSalon() {
         Random ran = new Random();
-        int situacion = ran.nextInt(2); // 0 tenebrosa, 1 escapar
+        int situacion = ran.nextInt(2); // 0 = tenebrosa, 1 = escapar
 
         if (situacion == 0) {
             System.out.println("¡Frankenstein ha venido con intención de estrangularte!");
-            Juego.juegoAdivinaNumero();
         } else {
             System.out.println("¡Hay una escalera en la chimenea que te permite escapar de la casa!");
         }
         return situacion;
-
     }
 
-    // 2. VENTANA
-    // DESPENSA O PASILLO
-    // * Si el jugador decide entrar por la ventana, el usuario llega a la cocina de
-    // * la casa y debe elegir
-    // * si quiere abrir la puerta de despensa o la puerta que da al pasillo.
-
-    public static String entrarPorVentana() {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Has entrado por la ventana y estás en la cocina de la casa");
-        String eleccion = "";
-        do{
-        System.out.println("¿Quieres abrir la puerta de la despensa o la del pasillo? (Despensa/Pasillo)");
-        eleccion = teclado.nextLine();
-        if (eleccion.equalsIgnoreCase("Despensa")) {
-            System.out.println("Has decidido abrir la puerta de la despensa");
-        } else if (eleccion.equalsIgnoreCase("Pasillo")) {
-            System.out.println("Has decidido abrir la puerta del pasillo");
-
-        }
-        }while(!eleccion.equalsIgnoreCase("Despensa") && !eleccion.equalsIgnoreCase("Pasillo"));
-        return eleccion;
-    }
-
-    //2.1 VENTANA
-    //DESPENSA
-    // En cada
-    // una de estas estancias pueden
-    // pasar dos situaciones, una siempre es tenebrosa y la otra es que consigues
-    // escapar.
-    // Inventa tus propias situaciones. Dale un toque personal al juego.
-
-    public static int situacionDespensa(){
+    /**
+     * Situación aleatoria en la despensa.
+     * @return 0 si ocurre la situación tenebrosa, 1 si escapas.
+     */
+    public static int situacionDespensa() {
         Random ran = new Random();
-        int situacion = ran.nextInt(2); // 0 tenebrosa, 1 escapar
+        int situacion = ran.nextInt(2); // 0 = tenebrosa, 1 = escapar
 
         if (situacion == 0) {
             System.out.println("¡Un fantasma ha aparecido y te asusta hasta la muerte!");
-            Juego.juegoAdivinaNumero();
         } else {
             System.out.println("¡Has encontrado una trampilla secreta que te permite escapar de la casa!");
         }
         return situacion;
-
     }
-    //2.2 VENTANA
-    //PASILLO
 
-    public static int situacionPasillo(){
+    /**
+     * Situación aleatoria en el pasillo.
+     * @return 0 si ocurre la situación tenebrosa, 1 si escapas.
+     */
+    public static int situacionPasillo() {
         Random ran = new Random();
-        int situacion = ran.nextInt(2); // 0 tenebrosa, 1 escapar
+        int situacion = ran.nextInt(2); // 0 = tenebrosa, 1 = escapar
 
         if (situacion == 0) {
             System.out.println("¡Un hombre lobo ha salido de las sombras para atacarte!");
-            Juego.juegoAdivinaNumero();
         } else {
             System.out.println("¡Has encontrado una puerta trasera que te permite escapar de la casa!");
         }
         return situacion;
-
     }
-    // En cualquier caso, al entrar en una estancia el juego elige aleatoriamente
-    //  * entre una de las dos posibles
-    //  * situaciones. Si surge la situación tenebrosa, entonces el espíritu de la casa
-    //  * aparece para jugar contigo.
-    //  * El maligno pensará un número entre 1 y 20 (aleatoriamente) y le dará 3 vidas
-    //  * al jugador para adivinarlo.
-    //  * Si el jugador lo adivina antes de las tres rondas, entonces libera a la casa
-    //  * del espíritu y se proclama
-    //  * héroe del pueblo. En caso contrario, el espíritu maligno devuelve al jugador
-    //  * a la posición inicial para
-    //  * seguir torturándolo.
 
+    /**
+     * Juego para adivinar el número que piensa el espíritu.
+     * Maneja InputMismatchException con la variable ime (como solicitaste).
+     * @return true si el jugador adivina el número, false si agota vidas.
+     */
     public static boolean juegoAdivinaNumero() {
-        Scanner teclado = new Scanner(System.in);
         Random ran = new Random();
         int numeroSecreto = ran.nextInt(20) + 1;
         int vidas = 3;
-        boolean haGanado = false;
 
         System.out.println("El espíritu maligno ha pensado un número entre 1 y 20. ¡Tienes 3 vidas para adivinarlo!");
 
         while (vidas > 0) {
-            System.out.println("Introduce tu número:");
-            int intento = teclado.nextInt();
+            System.out.print("Introduce tu número: ");
+            try {
+                int intento = teclado.nextInt();
+                teclado.nextLine(); // limpiar buffer
 
-            if (intento == numeroSecreto) {
-                haGanado = true;
-                System.out.println("¡Felicidades! Has adivinado el número y has liberado a la casa del espíritu maligno.");
-                break;
-            } else {
-                vidas--;
-                System.out.println("Número incorrecto. Te quedan " + vidas + " vidas.");
+                if (intento == numeroSecreto) {
+                    System.out.println("¡Felicidades! Has adivinado el número y has liberado a la casa del espíritu maligno.");
+                    return true;
+                } else {
+                    vidas--;
+                    if (intento < numeroSecreto) {
+                        System.out.println("El número es mayor. Te quedan " + vidas + " vidas.");
+                    } else {
+                        System.out.println("El número es menor. Te quedan " + vidas + " vidas.");
+                    }
+                }
+            } catch (InputMismatchException ime) {
+                System.out.println("Entrada no válida. Debes introducir un número entero.");
+                teclado.nextLine(); // limpia la entrada no numérica
             }
         }
 
-        if (!haGanado) {
-            System.out.println("No has adivinado el número. El espíritu maligno te devuelve a la posición inicial.");
-        }
-
-        return haGanado;
+        System.out.println("No has adivinado el número. El espíritu maligno te devuelve a la posición inicial.");
+        return false;
     }
-
 }
